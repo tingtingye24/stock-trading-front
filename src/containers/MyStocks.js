@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import TransCard from "../components/TransCard";
 import { BACKENDAPI } from "../constants";
 import { connect } from "react-redux";
 
 function MyStocks(props) {
-  const [loading, setLoading] = useState(true);
   useEffect(() => {
     fetchStocks();
     setInterval(() => {
