@@ -20,6 +20,13 @@ function MyStocks(props) {
     props.dispatch({ type: "TOTAL", total: current });
   }
 
+  const convertWalletToUSD = price => {
+    return price.toLocaleString("en-US", {
+      style: "currency",
+      currency: "USD"
+    });
+  };
+
   const fetchStocks = () => {
     if (props.user) {
       fetch(BACKENDAPI + `/users/profilio/${props.user}`)
@@ -27,7 +34,6 @@ function MyStocks(props) {
         .then(data => {
           if (Object.entries(data).length > 0) {
             handleSetTotal(data);
-            setLoading(false)
             props.dispatch({ type: "STOCKS", stocks: data });
           }
         });
@@ -44,9 +50,9 @@ function MyStocks(props) {
 
   return (
     <div>
-      <h1>Portfolio ${props.total}</h1>
+      <h1>Portfolio {convertWalletToUSD(props.total)}</h1>
       <h3>
-        {loading ? "Trying to retrieve the stocks data. Please wait..." : null}
+        {Object.entries(props.stocks).length === 0 ? "Trying to retrieve the stocks data. Please wait..." : null}
       </h3>
       <div class="transactions-box">{renderStocks()}</div>
     </div>

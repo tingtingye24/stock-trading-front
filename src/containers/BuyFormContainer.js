@@ -63,8 +63,6 @@ function BuyFormContainer(props) {
           Cash:{" "}
           {props.wallet ? convertWalletToUSD(props.wallet) : "Please Sign IN"}
         </h1>
-
-        {console.log(errors)}
         <div class="errors">
           {errors ? errors.map(error => <h5>{error}</h5>) : null}
         </div>

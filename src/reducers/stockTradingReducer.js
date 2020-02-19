@@ -2,6 +2,7 @@ export default function stockTradingReducer(
   state = {
     transactions: [],
     stocks: {},
+    total: 0
   },
   action
 ) {
