@@ -4,20 +4,20 @@ import { BACKENDAPI } from "../constants";
 import { connect } from "react-redux";
 
 function MyStocks(props) {
-  const [total, setTotal] = useState(0)
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     fetchStocks();
     setInterval(() => {
       fetchStocks();
-    }, 20000);
+    }, 2000);
   }, []);
 
-  function handleSetTotal(data){
-    let current = 0
+  function handleSetTotal(data) {
+    let current = 0;
     Object.keys(data).map(stockKey => {
-      current += data[stockKey].total
+      current += data[stockKey].total;
     });
-    props.dispatch({type: "TOTAL", total: current})
+    props.dispatch({ type: "TOTAL", total: current });
   }
 
   const fetchStocks = () => {
@@ -26,28 +26,29 @@ function MyStocks(props) {
         .then(resp => resp.json())
         .then(data => {
           if (Object.entries(data).length > 0) {
-            handleSetTotal(data)
+            handleSetTotal(data);
+            setLoading(false)
             props.dispatch({ type: "STOCKS", stocks: data });
           }
-          
         });
     }
   };
 
   const renderStocks = () => {
     return Object.keys(props.stocks).map(stockKey => {
-      return <TransCard transaction={props.stocks[stockKey]} stockKey={stockKey} />
+      return (
+        <TransCard transaction={props.stocks[stockKey]} stockKey={stockKey} />
+      );
     });
   };
-
-  
 
   return (
     <div>
       <h1>Portfolio ${props.total}</h1>
-    <div class="transactions-box">
-      {renderStocks()}
-    </div>
+      <h3>
+        {loading ? "Trying to retrieve the stocks data. Please wait..." : null}
+      </h3>
+      <div class="transactions-box">{renderStocks()}</div>
     </div>
   );
 }
