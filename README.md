@@ -9,6 +9,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 - [X] Users are able to see all transactions done in the account
 - [X] Users can view their portfolio to view their current stocks and current price
 - [X] Colors of stocks indicates if current value is greater, less than, or equal to the open price.
+- [X] Users can see all their transactions in the Transactions Tab
 
 
 ### Problems
